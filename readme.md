@@ -19,3 +19,9 @@ hostname函数本身就没有参数，但是，函数ls可以接受参数，带�
     fab tail:/etc/passwd,20
     fab tail:path=/etc/passwd,line=20
     fab tail:line=20,path=/etc/passwd
+
+# 通过命令行指定Fabric的参数
+
+可以通过`fab --help`看到fab的参数信息。例如，我们通过命令行执行hosts、port和用户名等，如下所示：
+
+    fab --hosts=`cat hosts | xargs | tr ' ' ','` --user=rds-user --port=1046 --fabfile=fabfile.py ls:~/log
