@@ -25,3 +25,25 @@ hostname函数本身就没有参数，但是，函数ls可以接受参数，带�
 可以通过`fab --help`看到fab的参数信息。例如，我们通过命令行执行hosts、port和用户名等，如下所示：
 
     fab --hosts=`cat hosts | xargs | tr ' ' ','` --user=rds-user --port=1046 --fabfile=fabfile.py ls:~/log
+
+# Fabric并行执行
+
+Fabirc还可以并行执行，通过`--parallel`参数开启并行，通过`--pool-size`指定线程个数。
+
+我们在ls中sleep 3秒，比较一下使用并行和不使用并行的差异。
+
+    def ls(path='.'):
+        run('ls {}'.format(path))
+        time.sleep(3)
+
+下面是使用并行和不使用并行时的执行时间消耗，可以看到，使用并行能够显著地降低命令的执行时间。
+
+    $ time fab --hosts=`cat hosts | xargs | tr ' ' ','` --user=rds-user --port=1046 --fabfile=fabfile.py ls:~/log
+    real    0m7.050s
+    user    0m0.372s
+    sys     0m0.028s
+    
+    $ time fab --pool-size=3 --parallel --hosts=`cat hosts | xargs | tr ' ' ','` --user=rds-user --port=1046 --fabfile=fabfile.py ls:~/log
+    real    0m3.779s
+    user    0m0.380s
+    sys     0m0.052s
