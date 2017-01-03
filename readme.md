@@ -47,3 +47,18 @@ Fabirc还可以并行执行，通过`--parallel`参数开启并行，通过`--po
     real    0m3.779s
     user    0m0.380s
     sys     0m0.052s
+
+# Fabric示例1
+
+
+获取所有的task：
+
+    fab --hosts=`cat hosts | xargs | tr ' ' ','` --user=rds-user --port=1046 --fabfile=upload_file.py --list
+
+执行单个task：
+
+    fab --hosts=`cat hosts | xargs | tr ' ' ','` --user=rds-user --port=1046 --fabfile=upload_file.py tar_task
+
+一次执行所有操作：
+
+    fab --hosts=`cat hosts | xargs | tr ' ' ','` --user=rds-user --port=1046 --fabfile=upload_file.py go
