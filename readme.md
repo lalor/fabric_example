@@ -62,3 +62,9 @@ Fabirc还可以并行执行，通过`--parallel`参数开启并行，通过`--po
 一次执行所有操作：
 
     fab --hosts=`cat hosts | xargs | tr ' ' ','` --user=rds-user --port=1046 --fabfile=upload_file.py go
+
+# Fabric示例2
+
+部署flask应用：
+
+    fab --hosts=`cat hosts | xargs | tr ' ' ','` --user=rds-user --port=1046 --fabfile=fabfile_app.py depoly

@@ -11,3 +11,6 @@ def ls(path='.'):
 
 def tail(path='/etc/passwd', line=10):
     run('tail -n {0} {1}'.format(line, path))
+
+def install_flask():
+    run('sudo pip install flask')
